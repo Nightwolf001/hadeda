@@ -1,0 +1,32 @@
+{
+  "name": "@hadeda/mobile",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "dependencies": {
+    "@expo-google-fonts/bricolage-grotesque": "^0.4.1",
+    "@expo-google-fonts/dm-mono": "^0.4.2",
+    "@expo-google-fonts/hanken-grotesk": "^0.4.3",
+    "@hadeda/assets": "workspace:*",
+    "@hadeda/design-tokens": "workspace:*",
+    "@hadeda/shared": "workspace:*",
+    "expo": "~58.0.24",
+    "expo-font": "~58.0.12",
+    "expo-status-bar": "~58.0.5",
+    "react": "19.3.0",
+    "react-native": "0.88.1"
+  },
+  "devDependencies": {
+    "@types/react": "~19.3.0",
+    "typescript": "~6.0.3"
+  },
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "typecheck": "tsc --noEmit"
+  },
+  "private": true,
+  "description": "Hadeda, the game: Expo / React Native app.",
+  "license": "MIT"
+}
