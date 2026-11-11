@@ -1,0 +1,21 @@
+{
+  "name": "@hadeda/assets",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Pixel art for Hadeda: sprites, pickups, obstacles, scenery, backgrounds and icons.",
+  "main": "index.ts",
+  "types": "index.ts",
+  "files": [
+    "index.ts",
+    "images",
+    "source",
+    "manifest.json",
+    "env.d.ts"
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "devDependencies": {
+    "typescript": "~6.0.3"
+  }
+}

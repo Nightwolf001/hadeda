@@ -1,0 +1,29 @@
+{
+  "name": "@hadeda/design-tokens",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Colours, type, spacing and radii from the Hadeda Design System, as a typed theme.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./tokens.json": "./tokens.json"
+  },
+  "files": [
+    "dist",
+    "src",
+    "tokens.json"
+  ],
+  "scripts": {
+    "generate": "node scripts/generate.mjs",
+    "build": "node scripts/generate.mjs && tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "~6.0.3"
+  }
+}
