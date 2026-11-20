@@ -1,0 +1,44 @@
+# The API's stack for dev-factory (see docs/factory.md). One service, `api`: Node 22 with the worktree mounted, installing only
+# what the API needs, building the shared package and running the API in watch mode on port 3000.
+#
+# node_modules lives in named volumes, one set per compose project (so per task): the install here is for Linux, and the
+# mobile app's install on the Mac (Metro runs on the host) must not be overwritten by it. Build output (packages/*/dist)
+# stays on the mounted tree, which is git-ignored.
+#
+# `ports` is what a canonical-ports start publishes; a `none` or `direct` start strips it, so several tasks can run this
+# same file at once.
+services:
+    api:
+        image: node:22-bookworm
+        working_dir: /workspace
+        environment:
+            PORT: '3000'
+            CI: 'true'
+            # the package store goes into the node_modules volume, not onto the mounted tree
+            npm_config_store_dir: /workspace/node_modules/.pnpm-store
+        command:
+            - sh
+            - -c
+            - >-
+                corepack enable
+                && pnpm install --frozen-lockfile --ignore-scripts --filter "@hadeda/api..."
+                && pnpm --filter @hadeda/shared run build
+                && exec pnpm --filter @hadeda/api run start:dev
+        volumes:
+            - ..:/workspace
+            - root_node_modules:/workspace/node_modules
+            - api_node_modules:/workspace/apps/api/node_modules
+            - shared_node_modules:/workspace/packages/shared/node_modules
+        ports:
+            - '3000:3000'
+        healthcheck:
+            test: ['CMD', 'curl', '-sf', 'http://localhost:3000/health']
+            interval: 5s
+            timeout: 5s
+            retries: 240
+            start_period: 30s
+
+volumes:
+    root_node_modules:
+    api_node_modules:
+    shared_node_modules:
